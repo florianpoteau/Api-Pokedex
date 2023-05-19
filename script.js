@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    fetch("https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0", "GET", recherche);
+    fetch("https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0", "GET", recherche);
 
     // condition permettant de récupérer d'autre pokémon dans la liste
 
     const plus = document.querySelector(".plus")
 
     plus.addEventListener("click", () =>{
-        fetch("https://pokeapi.co/api/v2/pokemon/?limit=40&offset=20", "GET", recherche);
+        fetch("https://pokeapi.co/api/v2/pokemon/?limit=10&offset=10", "GET", recherche);
+        plus.style.display = "none"
     })
 
 
@@ -34,10 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
             res = result.results[i].name
             // Je récupère les nom avec la boucle
             li.innerHTML = res;
+            
 
-            document.getElementById('jokes').append(li);
+            let joke = document.getElementById('jokes').append(li);
 
-            // Gestion du formulaire pour rechercher les pokémons
+                // Gestion du formulaire pour rechercher les pokémons
 
             let form = document.querySelector(".form")
 
@@ -49,6 +51,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 // On récupére la valeur de l'input
                 
                 const searchValue = document.getElementById('poke').value;
+
+                const selectValue = document.getElementById("select").value
+                console.log(selectValue);
+                
+
+                fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}`, "GET", select);
+
+                function select () {
+                    result = JSON.parse(this.response);
+                    console.log(result);
+                    if (selectValue == result.types[0].type.name || selectValue == result.types[1].type.name){
+                        console.log("hbshbfbdbfhdfbhj");
+                        li.innerHTML = `${result.name}   <=   ${selectValue}`
+                        joke.append(li)
+                    }
+                }
+
+                
 
                 // Condition permettant de vérifier la saisie
 
@@ -101,8 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
             type1.innerHTML = "Ce Pokémon n'a que un type";
             }
-                
- 
           }}
 
             });
