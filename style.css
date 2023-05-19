@@ -4,3 +4,11 @@ main{
     border: 1px solid red;
     padding: 2%;
 }
+
+.image{
+    width: 15%;
+}
+
+.h1{
+    text-transform: capitalize;
+}
