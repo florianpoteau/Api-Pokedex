@@ -61,10 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 function select () {
                     result = JSON.parse(this.response);
                     console.log(result);
-                    if (selectValue == result.types[0].type.name || selectValue == result.types[1].type.name){
-                        console.log("hbshbfbdbfhdfbhj");
-                        li.innerHTML = `${result.name}   <=   ${selectValue}`
+                    if (selectValue == result.types[0].type.name || (result.types[1] && selectValue == result.types[1].type.name)) {
+                        li.innerHTML = `${result.name}`
                         joke.append(li)
+                    }
+                    else {
+                        li.style.display = "none"
                     }
                 }
 
