@@ -1,8 +1,9 @@
 main{
     margin-left: 30%;
     margin-right: 30%;
-    border: 1px solid red;
+    border: 1px solid black;
     padding: 2%;
+    background-color: #e3f2db4d;
 }
 
 .image{
@@ -11,4 +12,8 @@ main{
 
 .h1{
     text-transform: capitalize;
+}
+
+ul{
+    color: #0056ff;
 }
