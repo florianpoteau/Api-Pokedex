@@ -54,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const selectValue = document.getElementById("select").value
                 console.log(selectValue);
-                
 
+                // filtrer avec le select par type de pokémon
+                
                 fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}`, "GET", select);
 
                 function select () {
