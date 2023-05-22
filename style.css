@@ -1,3 +1,7 @@
+body{
+    background-color: #03276ae0;
+}
+
 main{
     margin-left: 30%;
     margin-right: 30%;
@@ -10,10 +14,69 @@ main{
     width: 15%;
 }
 
-.h1{
+.h2{
     text-transform: capitalize;
 }
 
 ul{
     color: #0056ff;
+}
+
+nav{
+    display: flex;
+    justify-content: baseline;
+    background-color:#4e80efa6;
+    padding-left: 3%;
+    padding-right: 200%;
+}
+
+.divgauche{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ulNav{
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
+    gap: 10%;
+}
+
+li{
+    list-style-type: none;
+    color: white;
+}
+
+h1{
+    white-space: nowrap;
+    color: white;
+}
+
+.divdroite{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+}
+
+.divgauche{
+    display: flex;
+    margin-left: 2%;
+    margin-right: 20%;
+}
+
+.flex{
+    display: flex;
+}
+
+.pokedex{
+    color: #f3bc57;
+}
+
+.recherche{
+    margin-top: 7%;
+    background-color:#4e80efa6; 
+    width: 203%;
+    min-height: 300px;
+    text-align: center;
 }
