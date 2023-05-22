@@ -12,55 +12,50 @@ document.addEventListener('DOMContentLoaded', function () {
     //     plus.style.display = "none"
     // })
 
-    let gen = document.querySelector(".gen1");
-
-    gen.addEventListener("click", (e) =>{
-    e.preventDefault()
-        fetch(`https://pokeapi.co/api/v2/pokemon/?limit=10&offset=10`, "GET", rechercheNom);
-    })
-
-    function rechercheNom (){
-
-        let result = JSON.parse(this.response);
-
-        console.log(result.results.length);
-
-        for (i = 0; i<result.results.length; i++){
-
-            fetch(`https://pokeapi.co/api/v2/pokemon/${i+1}/`, "GET", rechercheImage);
-            
-        }
-        }
-
-        function rechercheImage (){
-
-            const image = document.createElement("img")
-
-            console.log(image);
-            
-            image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`
-
-            let imgSrc = document.querySelector(".imageSrc")
-
-            imgSrc.appendChild(image)
-
-        }
-
-    
-
-
-
     function fetch(url, method, fun) {
         //Initialisation de XHR
         const request = new XMLHttpRequest();
-        request.addEventListener("load", fun)
-        //Spécifier le type d'appelle [ GET, POST, PUT, PATCH, DELETE ] et l'URL
+        request.addEventListener("load", fun);
+        //Spécifier le type d'appel [ GET, POST, PUT, PATCH, DELETE ] et l'URL
         request.open(method, url);
         //Spécification que je veux du JSON en type de retour
-        request.setRequestHeader('Accept', "application/json")
-        //Permet d'envoyer la requêtes
-        request.send()
-    }
+        request.setRequestHeader('Accept', "application/json");
+        //Permet d'envoyer la requête
+        request.send();
+      }
+      
+      let gen1 = document.querySelector(".gen1");
+      let gen2 = document.querySelector(".gen2");
+      
+      function click_bouton_gen(gen, i, j) {
+        gen.addEventListener("click", (e) => {
+          e.preventDefault();
+          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${i}&offset=${j}`, "GET", rechercheNom(j));
+        });
+      }
+      
+      function rechercheNom(j) {
+        return function () {
+          let result = JSON.parse(this.response);
+      
+          console.log(result.results.length);
+      
+          for (let i = j; i < j + result.results.length; i++) {
+            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`;
+      
+            const imageElement = document.createElement("img");
+            imageElement.src = imageUrl;
+      
+            let imgSrc = document.querySelector(".imageSrc");
+            imgSrc.appendChild(imageElement);
+          }
+        };
+      }
+      
+      click_bouton_gen(gen1, 10, 0);
+      click_bouton_gen(gen2, 10, 10);
+      
+      
     
 
     // function recherche() {
