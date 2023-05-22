@@ -33,31 +33,16 @@
                     </ul>
                 </nav>
 
-                <div class="recherche">
-
-                    <h2 class="pokedex">Pokedex Lite</h2>
-
-                    <p>Search for a Pokemon with name</p>
-
-                </div>
-            </div>
-
-            <!-- Division droite -->
-
-            <div class="divdroite">
-
-            </div>
-
-        </div>
-
     </header>
 
-    <main>
+    <div class="recherche">
+
+        <h2 class="pokedex">Pokedex Lite</h2>
 
         <form action="" class="form">
 
+            <label for="poke">Recherchez un Pokémon avec le nom</label>
 
-            <label for="poke">Rechercher un pokémon:</label>
             <br>
             <br>
             <input type="text" id="poke" placeholder="Ecrivez ici">
@@ -65,41 +50,84 @@
             <br>
             <br>
 
-            <label for="select">Filtrer par type:</label>
-            <br>
-
-            <br>
-
-            <select name="select" id="select">
-                <option value="">Selectionner un filtre</option>
-                <option value="grass">grass</option>
-                <option value="poison">poison</option>
-                <option value="fire">fire</option>
-                <option value="flying">flying</option>
-                <option value="water">water</option>
-                <option value="bug">bug</option>
-            </select>
-            <br>
-            <br>
             <button class="submit">Envoyer</button>
 
-        </form>
+    </div>
 
-        <p>Sélectionnez un pokémon:</p>
+    <div class="recherche">
+
+        <h2>Generation 1</h2>
+
+        <div class="flexGen">
+
+
+            <button class="gen1 gen">Gen 1</button>
+            <button class="gen2 gen">Gen 2</button>
+            <button class="gen3 gen">Gen 3</button>
+            <button class="gen4 gen">Gen 4</button>
+            <button class="gen5 gen">Gen 5</button>
+            <button class="gen6 gen">Gen 6</button>
+            <button class="gen7 gen">Gen 7</button>
+        </div>
+
+        <div class="imageSrc">
+
+        </div>
+        <!-- <ul id="jokes">
+
+        </ul> -->
+        <img class="image" src="" alt="">
+        <img class="image1" src="" alt="">
+
+    </div>
+    </div>
+
+    <!-- Division droite -->
+
+    <div class="divdroite">
+
+    </div>
+
+    </div>
+
+    <main>
+
+
+
+
+        <br>
+        <br>
+
+        <!-- <label for="select">Filtrer par type:</label>
+        <br>
+
+        <br>
+
+        <select name="select" id="select">
+            <option value="">Selectionner un filtre</option>
+            <option value="grass">grass</option>
+            <option value="poison">poison</option>
+            <option value="fire">fire</option>
+            <option value="flying">flying</option>
+            <option value="water">water</option>
+            <option value="bug">bug</option>
+        </select>
+        <br>
+        <br> -->
 
         <ul id="jokes">
 
         </ul>
 
-        <button class="plus">Attrapez-les tous</button>
+        </form>
+
+        <!-- <button class="plus">Attrapez-les tous</button> -->
 
 
     </main>
     <div class="reponse">
 
         <h2 class="h2"></h2>
-
-        <img class="image" src="" alt="">
 
         <p id="stat"></p>
 

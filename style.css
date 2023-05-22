@@ -70,13 +70,36 @@ h1{
 }
 
 .pokedex{
+    margin-top: 5%;
     color: #f3bc57;
 }
 
 .recherche{
     margin-top: 7%;
     background-color:#4e80efa6; 
-    width: 203%;
-    min-height: 300px;
+    width: 50%;
+    min-height: 250px;
     text-align: center;
+}
+
+.submit{
+    height: 40px;
+    width: 40%;
+}
+
+#poke{
+    height: 30px;
+    width: 40%;
+}
+
+.flexGen{
+    display: flex;
+    justify-content: space-around;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.gen{
+    height: 50px;
+    width: 20%;
 }
