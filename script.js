@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let gen6 = document.querySelector(".gen6");
       let gen7 = document.querySelector(".gen7");
 
-      fetch(`https://pokeapi.co/api/v2/pokemon/?limit=71&offset=0`, "GET", recherche)
+      fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000&offset=0`, "GET", recherche)
 
       // evénement au click
       
@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
           for (let i = 0; i < 10; i++) {
             console.log(result);
             const pokemon = result.pokemon_species[i];
+            console.log(result);
             const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
       
             const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           nomPoke.innerHTML = searchValue
 
-          image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`;
+          image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png`;
 
           fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.results[0].name}/`, "GET", rechercheStatistique)
   
