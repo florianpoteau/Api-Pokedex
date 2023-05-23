@@ -10,6 +10,10 @@ main{
     background-color: #e3f2db4d;
 }
 
+.flex{
+    display: flex;
+}
+
 .image{
     width: 15%;
 }
@@ -27,7 +31,6 @@ nav{
     justify-content: baseline;
     background-color:#4e80efa6;
     padding-left: 3%;
-    padding-right: 200%;
 }
 
 .divgauche{
@@ -56,13 +59,14 @@ h1{
 .divdroite{
     display: flex;
     flex-direction: column;
-    margin-left: 10%;
+    margin-left: 3%;
+    background-color: #4e80efa6;
+    width: 50%;
 }
 
 .divgauche{
     display: flex;
-    margin-left: 2%;
-    margin-right: 20%;
+    width: 50%;
 }
 
 .flex{
@@ -77,9 +81,13 @@ h1{
 .recherche{
     margin-top: 7%;
     background-color:#4e80efa6; 
-    width: 50%;
+    width: 100%;
     min-height: 250px;
     text-align: center;
+}
+
+.titreGeneration{
+    color: #f3bc57;
 }
 
 .submit{
@@ -103,3 +111,52 @@ h1{
     height: 50px;
     width: 20%;
 }
+
+
+
+.imageSrc {
+    display: flex;
+    flex-wrap: wrap; /* Permet de faire passer les éléments à la ligne suivante */
+  }
+
+
+.imageSrc img {
+    width: 20%; /* Répartir les images sur 5 colonnes */
+  }
+
+  .imageContainer {
+    display: flex;
+    flex-basis: 15%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    width: 20%;
+  }
+  
+  .imageContainer img {
+    width: 100%;
+  }
+  
+  .imageContainer p {
+    width: 100%;
+    text-align: center;
+  }
+
+  label{
+    color: white;
+  }
+
+  .imagePokemon{
+    border: 1px solid beige;
+    margin-left: 18%;
+    margin-top: 5%;
+    width: 60%;
+    min-height: 300px;
+  }
+
+  .nomPoke{
+    text-align: center;
+    font-size: 25px;
+    color: #f3bc57;
+  }

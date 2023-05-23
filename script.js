@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //     plus.style.display = "none"
     // })
 
+    // Fetch
+
     function fetch(url, method, fun) {
         //Initialisation de XHR
         const request = new XMLHttpRequest();
@@ -23,38 +25,96 @@ document.addEventListener('DOMContentLoaded', function () {
         //Permet d'envoyer la requête
         request.send();
       }
+
+      // variable pour les bouton gen
       
       let gen1 = document.querySelector(".gen1");
       let gen2 = document.querySelector(".gen2");
+      let gen3 = document.querySelector(".gen3");
+      let gen4 = document.querySelector(".gen4");
+      let gen5 = document.querySelector(".gen5");
+      let gen6 = document.querySelector(".gen6");
+      let gen7 = document.querySelector(".gen7");
+
+      // evénement au click
       
       function click_bouton_gen(gen, i, j) {
         gen.addEventListener("click", (e) => {
           e.preventDefault();
-          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${i}&offset=${j}`, "GET", rechercheNom(j));
+          const numGeneration = ((j+1)/10 +1);
+          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${i}&offset=${j}`, "GET", rechercheImg(j, numGeneration));
+          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=1`, "GET", recherche)
         });
       }
       
-      function rechercheNom(j) {
+      function rechercheImg(j, numGeneration) {
         return function () {
           let result = JSON.parse(this.response);
+          const titre = document.querySelector(".titreGeneration");
+          titre.style.color = "#f3bc57"
       
           console.log(result.results.length);
       
-          for (let i = j; i < j + result.results.length; i++) {
-            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`;
+          // Supprimer le contenu de l'élément imageSrc avant d'ajouter de nouvelles images
+          let imgSrc = document.querySelector(".imageSrc");
+          imgSrc.innerHTML = '';
+      
+          for (let i = 0; i < result.results.length; i++) {
+
+            const pokemonIndex = j + i + 1;
+
+            titre.innerHTML = `Génération ${parseInt(numGeneration)}`;
+            
+            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
+
+            // Création d'un élément img pour afficher les images des pokémons
       
             const imageElement = document.createElement("img");
             imageElement.src = imageUrl;
-      
-            let imgSrc = document.querySelector(".imageSrc");
-            imgSrc.appendChild(imageElement);
+
+            // Création d'un p pour afficher le nom de chaque pokémon
+
+            const nomPokemon = document.createElement("p");
+
+            // Création d'un conteneur d'image disposer en flex grace à classList.add et ajout des images et du texte dans ce
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("imageContainer");
+            imageContainer.appendChild(imageElement);
+            imageContainer.appendChild(nomPokemon);
+            console.log(result.results[i+1].name);
+            nomPokemon.innerHTML = result.results[i+1].name
+            imgSrc.appendChild(imageContainer);
           }
         };
       }
       
-      click_bouton_gen(gen1, 10, 0);
-      click_bouton_gen(gen2, 10, 10);
       
+      click_bouton_gen(gen1, 11, 0);
+      click_bouton_gen(gen2, 11, 10);
+      click_bouton_gen(gen3, 11, 20);
+      click_bouton_gen(gen4, 11, 30);
+      click_bouton_gen(gen5, 11, 40);
+      click_bouton_gen(gen6, 11, 50);
+      click_bouton_gen(gen7, 11, 60);
+
+      function recherche (){
+
+        let result = JSON.parse(this.response);
+
+        const nomPoke = document.querySelector(".nomPoke")
+        const image = document.querySelector(".imagePokemon")
+        const form = document.querySelector(".form")
+        const searchValue = document.getElementById("poke");
+
+        form.addEventListener("submit", (e) =>{
+          e.preventDefault();
+
+          for (let i = 0; i<result.results.length; i++){
+            console.log(result);
+          }
+        })
+      }
+
       
     
 
