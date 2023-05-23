@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
           e.preventDefault();
           const numGeneration = ((j+1)/10 +1);
           fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${i}&offset=${j}`, "GET", rechercheImg(j, numGeneration));
-          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=1`, "GET", recherche)
+          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=71&offset=0`, "GET", recherche)
         });
       }
       
@@ -104,16 +104,35 @@ document.addEventListener('DOMContentLoaded', function () {
         const nomPoke = document.querySelector(".nomPoke")
         const image = document.querySelector(".imagePokemon")
         const form = document.querySelector(".form")
-        const searchValue = document.getElementById("poke");
 
         form.addEventListener("submit", (e) =>{
           e.preventDefault();
 
+          const searchValue = document.querySelector("#poke").value;
+
           for (let i = 0; i<result.results.length; i++){
-            console.log(result);
+
+            if (searchValue == result.results[i].name){
+              console.log("hhbbhbhbbb");
+            fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${i}`, "GET", rechercheNom)
           }
+        
+        function rechercheNom(){
+
+          let pokemon = JSON.parse(this.response);          
+  
+          console.log(pokemon);
+
+          nomPoke.innerHTML = searchValue
+
+          image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`
+  
+        }}
         })
+        
       }
+
+      
 
       
     

@@ -66,7 +66,7 @@ h1{
 
 .divgauche{
     display: flex;
-    width: 50%;
+    width: 40%;
 }
 
 .flex{
@@ -148,15 +148,23 @@ h1{
   }
 
   .imagePokemon{
-    border: 1px solid beige;
     margin-left: 18%;
     margin-top: 5%;
     width: 60%;
     min-height: 300px;
+
   }
 
   .nomPoke{
+    text-transform: capitalize;
     text-align: center;
     font-size: 25px;
     color: #f3bc57;
+  }
+
+  .containerImg{
+    background-color: #7196e7a6;
+    margin-left: 15%;
+    margin-right: 15%;
+    min-height: 400px;
   }
