@@ -119,15 +119,32 @@ document.addEventListener('DOMContentLoaded', function () {
         
         function rechercheNom(){
 
-          let pokemon = JSON.parse(this.response);          
+          let pokemon = JSON.parse(this.response);
+        
   
           console.log(pokemon);
 
           nomPoke.innerHTML = searchValue
 
-          image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`
+          image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i}.png`;
+
+          fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.results[0].name}/`, "GET", rechercheStatistique)
   
-        }}
+        }
+
+        function rechercheStatistique (){
+          pokemon = JSON.parse(this.response);
+          const hauteur = document.querySelector(".hauteur");
+          const largeur = document.querySelector(".largeur");
+          const pv = document.querySelector(".pv")
+          console.log(pokemon);
+
+          hauteur.textContent= `Hauteur: ${pokemon.height}`
+          largeur.textContent = `Largeur: ${pokemon.weight}`
+          pv.textContent = `Pv: ${pokemon.stats[0].base_stat}`
+        }
+      
+      }
         })
         
       }

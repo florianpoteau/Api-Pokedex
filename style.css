@@ -168,3 +168,22 @@ h1{
     margin-right: 15%;
     min-height: 400px;
   }
+
+  .recherche1{
+    margin-left: 15%;
+    width: 70%;
+    min-height: auto;
+  }
+
+  .flexStatistique{
+    display: flex;
+margin-left: 3%;
+  }
+
+  .largeur, .abilite{
+    flex: 1;
+  }
+
+  .statistique1, .statistique2, .statistique3, .statistique4, .statistique5{
+    color: white;
+  }
