@@ -62,6 +62,7 @@ h1{
     margin-left: 3%;
     background-color: #4e80efa6;
     width: 50%;
+    padding-bottom: 5%;
 }
 
 .divgauche{
@@ -176,6 +177,8 @@ h1{
   }
 
   .flexStatistique{
+    margin-top: 10%;
+    margin-bottom: 10%;
     display: flex;
 margin-left: 3%;
   }
@@ -184,6 +187,6 @@ margin-left: 3%;
     flex: 1;
   }
 
-  .statistique1, .statistique2, .statistique3, .statistique4, .statistique5{
+  .hauteur, .largeur, .pv, .abilite{
     color: white;
   }

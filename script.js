@@ -1,16 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
-    let liste = []
 
-
-    // condition permettant de récupérer d'autre pokémon dans la liste
-
-    // const plus = document.querySelector(".plus")
-
-    // plus.addEventListener("click", () =>{
-    //     fetch("https://pokeapi.co/api/v2/pokemon/?limit=10&offset=10", "GET", recherche);
-    //     plus.style.display = "none"
-    // })
 
     // Fetch
 
@@ -36,66 +25,62 @@ document.addEventListener('DOMContentLoaded', function () {
       let gen6 = document.querySelector(".gen6");
       let gen7 = document.querySelector(".gen7");
 
+      fetch(`https://pokeapi.co/api/v2/pokemon/?limit=71&offset=0`, "GET", recherche)
+
       // evénement au click
       
-      function click_bouton_gen(gen, i, j) {
+      function click_bouton_gen(gen, generation) {
         gen.addEventListener("click", (e) => {
           e.preventDefault();
-          const numGeneration = ((j+1)/10 +1);
-          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${i}&offset=${j}`, "GET", rechercheImg(j, numGeneration));
-          fetch(`https://pokeapi.co/api/v2/pokemon/?limit=71&offset=0`, "GET", recherche)
+          fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", rechercheImg());
         });
       }
       
-      function rechercheImg(j, numGeneration) {
+      function rechercheImg() {
         return function () {
           let result = JSON.parse(this.response);
           const titre = document.querySelector(".titreGeneration");
-          titre.style.color = "#f3bc57"
+          titre.style.color = "#f3bc57";
       
-          console.log(result.results.length);
-      
-          // Supprimer le contenu de l'élément imageSrc avant d'ajouter de nouvelles images
+          // Supprimez le contenu de l'élément imageSrc avant d'ajouter de nouvelles images
           let imgSrc = document.querySelector(".imageSrc");
           imgSrc.innerHTML = '';
       
-          for (let i = 0; i < result.results.length; i++) {
-
-            const pokemonIndex = j + i + 1;
-
-            titre.innerHTML = `Génération ${parseInt(numGeneration)}`;
-            
-            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
-
-            // Création d'un élément img pour afficher les images des pokémons
+          for (let i = 0; i < 10; i++) {
+            console.log(result);
+            const pokemon = result.pokemon_species[i];
+            const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
       
+            const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
+      
+            // Créez un élément img pour afficher les images des Pokémon
             const imageElement = document.createElement("img");
             imageElement.src = imageUrl;
-
-            // Création d'un p pour afficher le nom de chaque pokémon
-
+      
+            // Créez un élément p pour afficher le nom de chaque Pokémon
             const nomPokemon = document.createElement("p");
-
-            // Création d'un conteneur d'image disposer en flex grace à classList.add et ajout des images et du texte dans ce
+            nomPokemon.innerHTML = pokemon.name;
+      
+            // Créez un conteneur d'image disposé en flex en utilisant classList.add et ajoutez les images et le texte à ce conteneur
             const imageContainer = document.createElement("div");
             imageContainer.classList.add("imageContainer");
             imageContainer.appendChild(imageElement);
             imageContainer.appendChild(nomPokemon);
-            console.log(result.results[i+1].name);
-            nomPokemon.innerHTML = result.results[i+1].name
+      
             imgSrc.appendChild(imageContainer);
           }
         };
       }
       
       
-      click_bouton_gen(gen1, 11, 0);
-      click_bouton_gen(gen2, 11, 10);
-      click_bouton_gen(gen3, 11, 20);
-      click_bouton_gen(gen4, 11, 30);
-      click_bouton_gen(gen5, 11, 40);
-      click_bouton_gen(gen6, 11, 50);
-      click_bouton_gen(gen7, 11, 60);
+      
+      click_bouton_gen(gen1, "generation-i", 0);
+      click_bouton_gen(gen2, "generation-ii", 151);
+      click_bouton_gen(gen3, "generation-iii", 251);
+      click_bouton_gen(gen4, "generation-iv", 386);
+      click_bouton_gen(gen5, "generation-v", 494);
+      click_bouton_gen(gen6, "generation-vi", 650);
+      click_bouton_gen(gen7, "generation-vii", 722);
 
       function recherche (){
 
@@ -113,16 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
           for (let i = 0; i<result.results.length; i++){
 
             if (searchValue == result.results[i].name){
-              console.log("hhbbhbhbbb");
             fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${i}`, "GET", rechercheNom)
           }
         
         function rechercheNom(){
 
           let pokemon = JSON.parse(this.response);
-        
-  
-          console.log(pokemon);
 
           nomPoke.innerHTML = searchValue
 
