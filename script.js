@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-
-
-
     // Fetch
 
     function fetch(url, method, fun) {
@@ -109,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener("submit", (e) =>{
           e.preventDefault();
 
-          const searchValue = document.querySelector("#poke").value;
+          const searchValue = document.querySelector("#poke").value.toLowerCase();
 
           for (let i = 0; i<result.results.length; i++){
 
