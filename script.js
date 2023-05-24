@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 
+
+
     // Fetch
 
     function fetch(url, method, fun) {
@@ -15,13 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
         request.send();
       }
 
-      // création des boutons de génération 1 à 7
+      // création des boutons de génération 1 à 9
       
       const flexGen = document.querySelector(".flexGen")
 
-      // On boucle les boutons de 1 à 7 pour les créer
+      // On boucle les boutons de 1 à 9 pour les créer
 
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 1; i <= 9; i++) {
         const genButton = document.createElement("button");
         genButton.classList.add("gen");
         genButton.textContent = "Gen " + i;
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         flexGen.appendChild(genButton);
 
         // Création d'un tableau de génération afin de le fournir en paramètre pour la fonction click_bouton_gen
-        const generations = ["generation-i", "generation-ii","generation-iii","generation-iv","generation-v","generation-vi","generation-vii"]
+        const generations = ["1", "2","3","4","5","6","7", "8","9"]
 
         // Sélection de tous les boutons créer
         let gen1 = document.querySelectorAll(".gen");
@@ -75,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
             // Créez un élément img pour afficher les images des Pokémon
             const imageElement = document.createElement("img");
+            imageElement.classList.add("test")
             imageElement.src = imageUrl;
       
             // Créez un élément p pour afficher le nom de chaque Pokémon
@@ -109,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           for (let i = 0; i<result.results.length; i++){
 
-            if (searchValue == result.results[i].name){
+            if (result.results[i].name.includes(searchValue)){
             fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${i}`, "GET", rechercheNom)
           }
         
@@ -117,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
           let pokemon = JSON.parse(this.response);
 
-          nomPoke.innerHTML = searchValue
+          nomPoke.innerHTML = result.results[i].name
 
           image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png`;
 
@@ -130,16 +133,19 @@ document.addEventListener('DOMContentLoaded', function () {
           const hauteur = document.querySelector(".hauteur");
           const largeur = document.querySelector(".largeur");
           const pv = document.querySelector(".pv")
-          const type = document.getElementById("abilite")
+          const type = document.querySelector(".abilite")
           console.log(pokemon);
 
           hauteur.textContent= `Hauteur: ${pokemon.height}`
           largeur.textContent = `Largeur: ${pokemon.weight}`
           pv.textContent = `Pv: ${pokemon.stats[0].base_stat}`
 
-          const tableauTypes = pokemon
+          const tableauType = pokemon.types.map(type => type.type.name);
 
-          console.log(pokemon);
+          console.log(tableauType[1]);
+
+          type.textContent= `Abilité(s): ${tableauType[0]}, ${tableauType[1]}`
+
         }
       
       }
@@ -147,63 +153,13 @@ document.addEventListener('DOMContentLoaded', function () {
         
       }
 
-      
+    }
+    )
 
       
     
 
-    // function recherche() {
-    //     let result = JSON.parse(this.response);
-
-    //     liste = result.results;
-
-    //     console.log(liste);
-
-    //     let joke = document.getElementById('jokes');
-    // joke.innerHTML = '';
-
-
-    //     for (let i = 0; i < liste.length; i++) {
-    //         //Je crée mon <li></li>
-    //         let li = document.createElement('li');
-
-    //         const image = document.querySelector(".image");
-
-    //         image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`;
-
-    //         joke.appendChild(li);
-
-    //             // Gestion du formulaire pour rechercher les pokémons
-
-    //         let form = document.querySelector(".form")
-
-    //         // Evenénement formulaire
-
-    //         form.addEventListener('submit', function(event) {
-    //             event.preventDefault(); // Empêche le rechargement de la page
-
-                
-
-    //             // On récupére la valeur de l'input
-                
-    //             const searchValue = document.getElementById('poke').value;
-
-    //             // const selectValue = document.getElementById("select").value
-    //             // console.log(selectValue);
-
-    //             // Appel de la fonction select pour le filtre
-
-    //             // fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}`, "GET", select);
-
-    //             // Appel de la fonction printY pour afficher les pokémons
-
-    //             if (searchValue == result.results[i].name){
-                    
-    //                 fetch(`https://pokeapi.co/api/v2/pokemon/${i + 1}`, "GET", printY);
-    //                 fetch("https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0", "GET", recherche);
-    //             }
-                
-                
+     
     //     //     function select () {
     //     //     // filtrer avec le select par type de pokémon
 
@@ -228,35 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         
 
-    //     // function printY() {
-
-
-    //     //     // Afficher les donnée au format json
-
-    //     //     let pokemon = JSON.parse(this.response);
-
-    //     //     // Afficher en titre le nom du pokémon
-
-    //     //     const h1 = document.querySelector(".h2")
-
-    //     //     h1.innerHTML = searchValue
-
-    //     //     // Récupérer l'image du pokémon
-
-    //     //     const image = document.querySelector(".image");
-
-    //     //     image.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`;
-
-
-    //     //     // Récupérer les statistiques du pokémon
-
-    //     //     const tableau = [pokemon.stats[0].base_stat, pokemon.stats[1].base_stat, pokemon.stats[2].base_stat, pokemon.stats[3].base_stat, pokemon.stats[4].base_stat, pokemon.stats[5].base_stat]
-
-    //     //     console.log(pokemon);
-
-    //     //     let stat = document.getElementById("stat");
-
-    //     //     stat.innerHTML = `Vous avez sélectionnez le pokémon ${searchValue}, il a: <br> <ul> <li> ${tableau[0]} pv </li><br> <li> ${tableau[1]} attaque(s),</li> <br> <li> ${tableau[2]} defense(s),</li> <br> <li> ${tableau[3]} en attaque spéciale,</li><br> <li>${tableau[4]} en défense spéciale </li><br> </li><li>${tableau[5]} en vitesse</li> </ul>`
+    
 
     //     //     // Récupérer le type du pokémon
 
@@ -279,5 +207,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // }
     // }
-}
-)
