@@ -15,27 +15,46 @@ document.addEventListener('DOMContentLoaded', function () {
         request.send();
       }
 
-      // variable pour les bouton gen
+      // création des boutons de génération 1 à 7
       
-      let gen1 = document.querySelector(".gen1");
-      let gen2 = document.querySelector(".gen2");
-      let gen3 = document.querySelector(".gen3");
-      let gen4 = document.querySelector(".gen4");
-      let gen5 = document.querySelector(".gen5");
-      let gen6 = document.querySelector(".gen6");
-      let gen7 = document.querySelector(".gen7");
+      const flexGen = document.querySelector(".flexGen")
 
+      // On boucle les boutons de 1 à 7 pour les créer
+
+      for (let i = 1; i <= 7; i++) {
+        const genButton = document.createElement("button");
+        genButton.classList.add("gen");
+        genButton.textContent = "Gen " + i;
+      
+        flexGen.appendChild(genButton);
+
+        // Création d'un tableau de génération afin de le fournir en paramètre pour la fonction click_bouton_gen
+        const generations = ["generation-i", "generation-ii","generation-iii","generation-iv","generation-v","generation-vi","generation-vii"]
+
+        // Sélection de tous les boutons créer
+        let gen1 = document.querySelectorAll(".gen");
+      
+        // Boucle permettant de récupérer et de afficher les générations de 1 à 7 sur chaque bouton
+      for (let i = 0; i<gen1.length; i++){
+      click_bouton_gen(gen1[i], generations[i]);
+      }
+      }
+
+      // Fetch et fonction recherche permettant à l'input de rechercher un pokémon et d'afficher un pokémon avec ses statistiques
       fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000&offset=0`, "GET", recherche)
 
+      // Fonction click_bouton_gen appellé dans la boucle ligne 38
       // evénement au click
-      
       function click_bouton_gen(gen, generation) {
-        gen.addEventListener("click", (e) => {
-          e.preventDefault();
-          fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", rechercheImg());
-        });
+          gen.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Fetch permettant de rechercher chaque pokémon de chaque génération avec la fonction rechercheImg
+            fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", rechercheImg());
+          });
       }
-      
+    
+      // Fonction permettant de récupérer les images et le texte dans les générations
       function rechercheImg() {
         return function () {
           let result = JSON.parse(this.response);
@@ -45,9 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
           // Supprimez le contenu de l'élément imageSrc avant d'ajouter de nouvelles images
           let imgSrc = document.querySelector(".imageSrc");
           imgSrc.innerHTML = '';
-      
+
+          // Faire une boucle pour afficher 10 images par génération et parcourir la liste
           for (let i = 0; i < 10; i++) {
-            console.log(result);
             const pokemon = result.pokemon_species[i];
             console.log(result);
             const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
@@ -72,16 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         };
       }
-      
-      
-      
-      click_bouton_gen(gen1, "generation-i", 0);
-      click_bouton_gen(gen2, "generation-ii", 151);
-      click_bouton_gen(gen3, "generation-iii", 251);
-      click_bouton_gen(gen4, "generation-iv", 386);
-      click_bouton_gen(gen5, "generation-v", 494);
-      click_bouton_gen(gen6, "generation-vi", 650);
-      click_bouton_gen(gen7, "generation-vii", 722);
+
+      // Function permettant d'afficher les statistiques d'un pokémon lors de l'envoie du formulaire avec le nom du pokémon
 
       function recherche (){
 
@@ -119,11 +130,16 @@ document.addEventListener('DOMContentLoaded', function () {
           const hauteur = document.querySelector(".hauteur");
           const largeur = document.querySelector(".largeur");
           const pv = document.querySelector(".pv")
+          const type = document.getElementById("abilite")
           console.log(pokemon);
 
           hauteur.textContent= `Hauteur: ${pokemon.height}`
           largeur.textContent = `Largeur: ${pokemon.weight}`
           pv.textContent = `Pv: ${pokemon.stats[0].base_stat}`
+
+          const tableauTypes = pokemon
+
+          console.log(pokemon);
         }
       
       }
