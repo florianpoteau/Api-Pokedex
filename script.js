@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
       function rechercheImg() {
         return function () {
           let result = JSON.parse(this.response);
+          console.log(result);
           const titre = document.querySelector(".titreGeneration");
           titre.style.color = "#f3bc57";
       
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
           imgSrc.innerHTML = '';
 
           // Faire une boucle pour afficher 10 images par génération et parcourir la liste
-          for (let i = 0; i < 10; i++) {
+          for (let i = 0; i < result.pokemon_species.length; i++) {
             const pokemon = result.pokemon_species[i];
             console.log(result);
             const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
