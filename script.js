@@ -63,7 +63,6 @@ function fetch(url, method, fun) {
   function rechercheImg() {
     return function () {
       let result = JSON.parse(this.response);
-      console.log(result);
       const titre = document.querySelector(".titreGeneration");
       titre.style.color = "#f3bc57";
       
@@ -74,7 +73,6 @@ function fetch(url, method, fun) {
       // Faire une boucle pour afficher 10 images par génération et parcourir la liste
       for (let i = 0; i < result.pokemon_species.length; i++) {
         const pokemon = result.pokemon_species[i];
-        console.log(result);
         titre.innerHTML = `Génération ${result.id}`
         const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
       
@@ -175,9 +173,6 @@ const speed = result.stats[5].base_stat
         }
       });
     
-      
-      
-   
   }
 })
 
