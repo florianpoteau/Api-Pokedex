@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Fetch
 
+
 function fetch(url, method, fun) {
     //Initialisation de XHR
     const request = new XMLHttpRequest();
@@ -44,7 +45,7 @@ function fetch(url, method, fun) {
 
 
   // Fetch et fonction recherche permettant à l'input de rechercher un pokémon et d'afficher un pokémon avec ses statistiques
-  fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000&offset=0`, "GET", recherche)
+  fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1000&offset=0`, "GET", recherche_nom)
 
   // Fonction click_bouton_gen
   // evénement au click
@@ -100,7 +101,7 @@ function fetch(url, method, fun) {
 
   // Function permettant d'afficher les statistiques d'un pokémon lors de l'envoie du formulaire avec le nom du pokémon
 
-  function recherche (){
+  function recherche_nom (){
 
     let result = JSON.parse(this.response);
 
@@ -116,10 +117,10 @@ function fetch(url, method, fun) {
       for (let i = 0; i<result.results.length; i++){
 
         if (result.results[i].name.includes(searchValue)){
-        fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${i}`, "GET", rechercheNom)
+        fetch(`https://pokeapi.co/api/v2/pokemon/?limit=1&offset=${i}`, "GET", affichage_pokemon)
       }
         
-    function rechercheNom(){
+    function affichage_pokemon(){
 
       let pokemon = JSON.parse(this.response);
 
@@ -173,6 +174,10 @@ const speed = result.stats[5].base_stat
         }
       });
     
+  }
+
+  function comparaison () {
+
   }
 })
 
