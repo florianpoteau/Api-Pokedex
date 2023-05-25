@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
         request.send();
       }
 
+      
+
       // création des boutons de génération 1 à 9
       
       const flexGen = document.querySelector(".flexGen")
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Sélection de tous les boutons créer
         let gen1 = document.querySelectorAll(".gen");
       
-        // Boucle permettant de récupérer et de afficher les générations de 1 à 7 sur chaque bouton
+        // Boucle permettant de récupérer et de afficher les générations de 1 à 9 sur chaque bouton
       for (let i = 0; i<gen1.length; i++){
       click_bouton_gen(gen1[i], generations[i]);
       }
@@ -52,6 +54,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", rechercheImg());
           });
       }
+
+      
     
       // Fonction permettant de récupérer les images et le texte dans les générations
       function rechercheImg() {
@@ -127,22 +131,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function rechercheStatistique (){
-          pokemon = JSON.parse(this.response);
-          const hauteur = document.querySelector(".hauteur");
-          const largeur = document.querySelector(".largeur");
-          const pv = document.querySelector(".pv")
-          const type = document.querySelector(".abilite")
-          console.log(pokemon);
+          result = JSON.parse(this.response);
 
-          hauteur.textContent= `Hauteur: ${pokemon.height}`
-          largeur.textContent = `Largeur: ${pokemon.weight}`
-          pv.textContent = `Pv: ${pokemon.stats[0].base_stat}`
+          const hp = result.stats[0].base_stat
+    const attaque = result.stats[1].base_stat
+    const defense = result.stats[2].base_stat
+    const attaqueSp = result.stats[3].base_stat
+    const defenseSp = result.stats[4].base_stat
+    const speed = result.stats[5].base_stat
+          
+          console.log(result.stats[0].base_stat)
 
-          const tableauType = pokemon.types.map(type => type.type.name);
+          const ctx = document.getElementById('myChart');
 
-          console.log(tableauType[1]);
+          new Chart(ctx, {
+            type: 'radar',
+            data: {
+              labels: ['hp', 'attaque', 'defense', 'attaque spéciale', 'défense spéciale', 'vitesse'],
+              datasets: [{
+                label: ['Statistique'],
+                data: [hp, attaque, defense, attaqueSp, defenseSp, speed],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
 
-          type.textContent= `Abilité(s): ${tableauType[0]}, ${tableauType[1]}`
+          
 
         }
       
