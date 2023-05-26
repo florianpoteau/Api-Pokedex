@@ -19,40 +19,34 @@ function fetch(url, method, fun) {
 
   let nombrePokemon = 0;
 
+  // Fonction permet d'ajouter un pokémon à la liste lors du click sur le bouton ajouter, la fonction est appellé à l'intérieur de la fonction génération()
 
-  function click_liste_pokemon (result, i, ajouter) {
-
-    if(formulaireComplete == true){
-      
-      ajouter.addEventListener("click", () => {
-        const pokemonName = result.pokemon_species[i].name;
-      
-        // Vérifier si le nom du Pokémon existe déjà dans la liste
-        const existingPokemon = formDresseur.querySelector(`li[data-name="${pokemonName}"]`);
-        if (existingPokemon) {
-          // Supprimer le Pokémon existant de la liste
-        } else {
-          nombrePokemon += 1;
-          console.log(nombrePokemon);
-          console.log(pokemonName);
-      
-          const li = document.createElement("li");
-          li.setAttribute("data-name", pokemonName);
-          li.innerHTML = pokemonName;
-      
-          if (nombrePokemon > 6) {
-            // Supprimer le dernier Pokémon ajouté s'il y en a plus de 6
-            formDresseur.removeChild(formDresseur.lastElementChild);
-            nombrePokemon--;
-          }
-      
-          formDresseur.appendChild(li);
+  function click_liste_pokemon(result, i, ajouter) {
+    ajouter.addEventListener("click", () => {
+      const pokemonName = result.pokemon_species[i].name;
+  
+      // Vérifier si le nom du Pokémon existe déjà dans la liste
+      const existingPokemon = formDresseur.querySelector(`li[data-name="${pokemonName}"]`);
+      if (existingPokemon) {
+        // Supprimer le Pokémon existant de la liste
+      } else {
+        nombrePokemon += 1;
+        console.log(nombrePokemon);
+        console.log(pokemonName);
+  
+        const li = document.createElement("li");
+        li.setAttribute("data-name", pokemonName);
+        li.innerHTML = pokemonName;
+  
+        if (nombrePokemon > 6) {
+          // Supprimer le dernier Pokémon ajouté s'il y en a plus de 6
+          formDresseur.removeChild(formDresseur.lastElementChild);
+          nombrePokemon--;
         }
-      });
-      
-
-      
-    }
+  
+        formDresseur.appendChild(li);
+      }
+    });
   }
 
     // événement sur le formulaire du dresseur
@@ -86,8 +80,6 @@ function fetch(url, method, fun) {
       choixPokemon.style.color = "white"
 
       formulaireComplete = true;
-
-      
 
     })
 
@@ -127,7 +119,7 @@ function fetch(url, method, fun) {
       gen.addEventListener("click", (e) => {
         e.preventDefault();
 
-        // Fetch permettant de rechercher chaque pokémon de chaque génération avec la fonction rechercheImg
+        // Fetch permettant de rechercher chaque pokémon de chaque génération avec la fonction Generation
         fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", Generation());
       });
   }
@@ -138,8 +130,10 @@ function fetch(url, method, fun) {
   function Generation() {
 
     
-
     return function () {
+
+      
+
       let result = JSON.parse(this.response);
       const titre = document.querySelector(".titreGeneration");
       titre.style.color = "#f3bc57";
