@@ -27,16 +27,27 @@ function fetch(url, method, fun) {
   
       // Vérifier si le nom du Pokémon existe déjà dans la liste
       const existingPokemon = formDresseur.querySelector(`li[data-name="${pokemonName}"]`);
-      if (existingPokemon) {
-        // Supprimer le Pokémon existant de la liste
-      } else {
+      if (!existingPokemon) {
         nombrePokemon += 1;
+        document.cookie = `user ${result.pokemon_species[i].name}`
+
+        alert(document.cookie)
         console.log(nombrePokemon);
         console.log(pokemonName);
-  
+
+        // Création d'une liste de pokémon
         const li = document.createElement("li");
         li.setAttribute("data-name", pokemonName);
         li.innerHTML = pokemonName;
+        li.classList.add("listePoke")
+
+        // Création d'un bouton supprimer par pokémon ajouté
+        const button = document.createElement("button")
+        button.innerHTML= "Supprimer"
+      
+
+        // création des élément dans la liste
+        li.appendChild(button)
   
         if (nombrePokemon > 6) {
           // Supprimer le dernier Pokémon ajouté s'il y en a plus de 6
@@ -45,9 +56,42 @@ function fetch(url, method, fun) {
         }
   
         formDresseur.appendChild(li);
+
+        // Booléan qui permet de supprimer un pokémon en pouvant en rajoutant de nouveaux
+
+        let button1 = false
+
+        if(button1 == false){
+
+        button.addEventListener("click", (e) =>{
+
+          // StopPropagation qui permet d'annuler l'événement du formulaire créant un nouveau dresseur
+          e.stopPropagation();
+
+          // Supprimer du pokémon choisis par l'utilisateur
+          li.remove()
+
+          // On enlève 1 de la variable nombrePokemon afin de pouvoir choisis jusqu'à 6 pokémons
+          nombrePokemon --
+
+          // initialisation du bouton a true pour sortir et revenir de la condition quand nécessaire
+          button1 = true;
+        })}
       }
     });
   }
+
+  // Cookie pour récupérer le nom du dresseur
+      function getCookie(name) {
+        const cookies = document.cookie.split(";"); // Divise les cookies en tableau
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim(); // Supprime les espaces autour du cookie
+          if (cookie.startsWith(name + "=")) {
+            return cookie.substring(name.length + 1); // Récupère la valeur du cookie
+          }
+        }
+        return ""; // Retourne une chaîne vide si le cookie n'est pas trouvé
+      }
 
     // événement sur le formulaire du dresseur
     
@@ -62,8 +106,10 @@ function fetch(url, method, fun) {
       const displayDresseur = document.querySelector(".displayDresseur");
       
       // Cookie pour récupérer le nom du dresseur
-      document.cookie = `Dresseur =  ${inputDresseur}`; //Crée ou met à jour un cookie 'user'
-      alert(document.cookie); //Affiche la liste des cookies
+      document.cookie = `name= ${inputDresseur}`; //Crée ou met à jour un cookie
+      const cookieValue = getCookie("name");
+      console.log(cookieValue); // Affiche la valeur du cookie
+      
 
             // Création d'un élément p pour afficher le dresseur et suppression du bouton et de l'input
 
@@ -75,13 +121,17 @@ function fetch(url, method, fun) {
 
       // Création d'un élément p pour choisir les pokémons
       const choixPokemon = document.createElement("p");
-      choixPokemon.innerHTML = `Choisissez 6 pokémons en cliquant dessus via les générations`
+      choixPokemon.innerHTML = `Choisissez votre équipe de 6 pokémons en cliquant sur ajouter via les générations`
       formDresseur.appendChild(choixPokemon)
       choixPokemon.style.color = "white"
 
       formulaireComplete = true;
+      // const input = document.querySelector("#dresseur")
+      // input.value = `${cookieinput}`
 
     })
+
+    
 
   // création des boutons de génération 1 à 9
       
@@ -143,7 +193,7 @@ function fetch(url, method, fun) {
       imgSrc.innerHTML = '';
 
       // Faire une boucle pour afficher 10 images par génération et parcourir la liste
-      for (let i = 0; i < result.pokemon_species.length; i++) {
+      for (let i = 0; i < 20; i++) {
         const pokemon = result.pokemon_species[i];
         titre.innerHTML = `Génération ${result.id}`
         const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
