@@ -1,3 +1,7 @@
+:root {
+    --text-color: white;
+  }
+
 body{
     background-color: #03276ae0;
 }
@@ -48,12 +52,12 @@ nav{
 
 li{
     list-style-type: none;
-    color: white;
+    color: var(--text-color);
 }
 
 h1{
     white-space: nowrap;
-    color: white;
+    color: var(--text-color);
 }
 
 .divdroite{
@@ -91,12 +95,12 @@ h1{
     color: #f3bc57;
 }
 
-.submit, .submit1{
+.submit, .submit1, .btnDresseur, .btnAjouter{
     height: 40px;
     width: 40%;
 }
 
-#poke{
+#poke, #dresseur{
     height: 30px;
     width: 40%;
 }
@@ -145,7 +149,7 @@ h1{
   }
 
   label{
-    color: white;
+    color: var(--text-color);
   }
 
   .imagePokemon{
@@ -174,7 +178,7 @@ h1{
     margin-left: 15%;
     width: 70%;
     min-height: 250px;
-    background-color: #fff;
+    background-color: var(--text-color);
     
   }
 
