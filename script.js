@@ -15,8 +15,6 @@ function fetch(url, method, fun) {
     request.send();
   }
 
-  let formulaireComplete = false;
-
   let nombrePokemon = 0;
 
   // Fonction permet d'ajouter un pokémon à la liste lors du click sur le bouton ajouter, la fonction est appellé à l'intérieur de la fonction génération()
@@ -24,14 +22,15 @@ function fetch(url, method, fun) {
   function click_liste_pokemon(result, i, ajouter) {
     ajouter.addEventListener("click", () => {
       const pokemonName = result.pokemon_species[i].name;
+
+      document.cookie = `pokemon${i}= ${pokemonName}`; //Crée ou met à jour un cookie
+      
   
       // Vérifier si le nom du Pokémon existe déjà dans la liste
       const existingPokemon = formDresseur.querySelector(`li[data-name="${pokemonName}"]`);
       if (!existingPokemon) {
         nombrePokemon += 1;
         document.cookie = `user ${result.pokemon_species[i].name}`
-
-        alert(document.cookie)
         console.log(nombrePokemon);
         console.log(pokemonName);
 
@@ -57,7 +56,7 @@ function fetch(url, method, fun) {
   
         formDresseur.appendChild(li);
 
-        // Booléan qui permet de supprimer un pokémon en pouvant en rajoutant de nouveaux
+        // Booléan qui permet de supprimer un pokémon en pouvant en rajouter de nouveaux
 
         let button1 = false
 
@@ -294,11 +293,6 @@ const speed = result.stats[5].base_stat
           }]
         },
         options: {
-          plugins: {
-            customCanvasBackgroundColor: {
-              color: 'lightGreen',
-            }
-          },
           scales: {
             y: {
               beginAtZero: true
@@ -306,6 +300,7 @@ const speed = result.stats[5].base_stat
           }
         }
       });
+      
     
   }
 
