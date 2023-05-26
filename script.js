@@ -15,7 +15,81 @@ function fetch(url, method, fun) {
     request.send();
   }
 
+  let formulaireComplete = false;
+
+  let nombrePokemon = 0;
+
+
+  function click_liste_pokemon (result, i, ajouter) {
+
+    if(formulaireComplete == true){
       
+      ajouter.addEventListener("click", () => {
+        const pokemonName = result.pokemon_species[i].name;
+      
+        // Vérifier si le nom du Pokémon existe déjà dans la liste
+        const existingPokemon = formDresseur.querySelector(`li[data-name="${pokemonName}"]`);
+        if (existingPokemon) {
+          // Supprimer le Pokémon existant de la liste
+        } else {
+          nombrePokemon += 1;
+          console.log(nombrePokemon);
+          console.log(pokemonName);
+      
+          const li = document.createElement("li");
+          li.setAttribute("data-name", pokemonName);
+          li.innerHTML = pokemonName;
+      
+          if (nombrePokemon > 6) {
+            // Supprimer le dernier Pokémon ajouté s'il y en a plus de 6
+            formDresseur.removeChild(formDresseur.lastElementChild);
+            nombrePokemon--;
+          }
+      
+          formDresseur.appendChild(li);
+        }
+      });
+      
+
+      
+    }
+  }
+
+    // événement sur le formulaire du dresseur
+    
+
+    const formDresseur = document.querySelector(".formDresseur");
+
+    formDresseur.addEventListener("submit", (e) => {
+
+      e.preventDefault();
+
+      const inputDresseur = document.getElementById("dresseur").value
+      const displayDresseur = document.querySelector(".displayDresseur");
+      
+      // Cookie pour récupérer le nom du dresseur
+      document.cookie = `Dresseur =  ${inputDresseur}`; //Crée ou met à jour un cookie 'user'
+      alert(document.cookie); //Affiche la liste des cookies
+
+            // Création d'un élément p pour afficher le dresseur et suppression du bouton et de l'input
+
+      const nomDresseur = document.createElement("p")
+      formDresseur.appendChild(nomDresseur)
+      nomDresseur.innerHTML = `Votre dresseur s'appelle: ${inputDresseur}`
+      nomDresseur.style.color = "white"
+      displayDresseur.style.display = "none"
+
+      // Création d'un élément p pour choisir les pokémons
+      const choixPokemon = document.createElement("p");
+      choixPokemon.innerHTML = `Choisissez 6 pokémons en cliquant dessus via les générations`
+      formDresseur.appendChild(choixPokemon)
+      choixPokemon.style.color = "white"
+
+      formulaireComplete = true;
+
+      
+
+    })
 
   // création des boutons de génération 1 à 9
       
@@ -54,14 +128,17 @@ function fetch(url, method, fun) {
         e.preventDefault();
 
         // Fetch permettant de rechercher chaque pokémon de chaque génération avec la fonction rechercheImg
-        fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", rechercheImg());
+        fetch(`https://pokeapi.co/api/v2/generation/${generation}`, "GET", Generation());
       });
   }
 
       
     
   // Fonction permettant de récupérer les images et le texte dans les générations
-  function rechercheImg() {
+  function Generation() {
+
+    
+
     return function () {
       let result = JSON.parse(this.response);
       const titre = document.querySelector(".titreGeneration");
@@ -78,6 +155,8 @@ function fetch(url, method, fun) {
         const pokemonIndex = pokemon.url.split("/").slice(-2, -1)[0];
       
         const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIndex}.png`;
+
+        
       
         // Créez un élément img pour afficher les images des Pokémon
         const imageElement = document.createElement("img");
@@ -87,14 +166,24 @@ function fetch(url, method, fun) {
         // Créez un élément p pour afficher le nom de chaque Pokémon
         const nomPokemon = document.createElement("p");
         nomPokemon.innerHTML = pokemon.name;
+
+        const boutonAjouter = document.createElement("button")
+        boutonAjouter.innerHTML = "Ajouter"
+        boutonAjouter.classList.add(".btnAjouter")
+        boutonAjouter.style.width = "90%"
+        boutonAjouter.style.height = "20px"
       
         // Créez un conteneur d'image disposé en flex en utilisant classList.add et ajoutez les images et le texte à ce conteneur
         const imageContainer = document.createElement("div");
         imageContainer.classList.add("imageContainer");
         imageContainer.appendChild(imageElement);
         imageContainer.appendChild(nomPokemon);
+        imageContainer.appendChild(boutonAjouter)
       
         imgSrc.appendChild(imageContainer);
+
+        // Appelle de la fonction permettant d'ajouter un pokémon a la liste des dresseurs
+        click_liste_pokemon(result, i, boutonAjouter);
       }
     };
   }
@@ -176,9 +265,6 @@ const speed = result.stats[5].base_stat
     
   }
 
-  function comparaison () {
-
-  }
 })
 
       
